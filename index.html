@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css'><link rel="stylesheet" href="./style.css?v=2">
+
+      
+      <style>
+      
+      
+      
+      .splide {
+  padding: 20px 0;
+}
+
+.splide__slide{
+    width:800px !important;
+          }
+          
+.splide__slide img {
+  display: block;
+  width: 100%;
+  border-radius: 0px;
+  transition: transform 400ms;
+  transform: scale(0.9);
+  transform-origin: center center;
+}
+
+.splide__slide.is-active img {
+  transform: scale(1);
+}
+
+.splide .splide__arrow {
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  transform: none;
+  border-radius: unset;
+  width: 50px;
+  opacity: 0.9;
+    display: none;
+}
+.splide .splide__arrow svg {
+  filter: invert(1);
+  width: 24px;
+  height: 24px;
+}
+
+.splide__arrow.splide__arrow--prev {
+  left: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.splide__arrow.splide__arrow--next {
+  right: 0;
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+body {
+  margin: 0;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  font-family: Arial;
+}
+
+a {
+  color: #fff;
+  padding: 4px 8px;
+}
+
+section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.left {
+  text-align: left;
+}
+      
+      
+      </style>
+      
+      
+  </head>
+    
+  <body>
+      
+      
+      
+      
+      
+      
+  <div id="splide" class="splide">
+  <div class="splide__track">
+    <ul class="splide__list">
+      <li class="splide__slide"><img src="https://sharepro.cloud/cfr/2026-homepage/001b.jpg"></li>
+      <li class="splide__slide"><img src="https://sharepro.cloud/cfr/2026-homepage/002b.jpg"></li>
+      <li class="splide__slide"><img src="https://sharepro.cloud/cfr/2026-homepage/001b.jpg"></li>
+      <li class="splide__slide"><img src="https://sharepro.cloud/cfr/2026-homepage/002b.jpg"></li>
+    </ul>
+  </div>
+</div>
+    <script src='https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.6/dist/js/splide.min.js'></script><script  src="./script.js?v=3"></script>
+
+      
+      
+      <script>
+      
+          
+          document.addEventListener( 'DOMContentLoaded', function () {
+  new Splide('#splide', {
+    type: 'loop',
+    perPage: 1,
+    focus: 'center',
+    autoplay: true,
+    interval: 8000,
+    flickMaxPages: 3,
+    updateOnMove: true,
+    pagination: false,
+    padding: '0%',
+    throttle: 300,
+    breakpoints: {
+      1440: {
+        perPage: 1,
+        padding: '30%'
+      }
+    }
+  }).mount();
+});
+          
+      </script>
+      
+      
+      
+      
+      
+      
+      
+      
+<!-- Add this widget anywhere inside <body> (ideally right after the #splide div) -->
+<div class="slide-counter" id="slideCounter" aria-label="Slideshow controls">
+  <span class="slide-counter__text" id="slideCounterText">1/1</span>
+
+  <button class="slide-counter__btn" id="slidePrev" type="button" aria-label="Previous slide">
+    <!-- left arrow -->
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M15.5 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <button class="slide-counter__btn" id="slideNext" type="button" aria-label="Next slide">
+    <!-- right arrow -->
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8.5 19l7-7-7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+</div>
+
+<style>
+  /* Upper-right overlay pill */
+  .slide-counter{
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 9999;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 12px;
+    border-radius: 999px;
+
+/*    background: rgba(0,0,0,0.55);*/
+      
+       background: rgba(0,0,0,1);
+      
+    border: 1px solid rgba(255,255,255,1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    user-select: none;
+  }
+
+  .slide-counter__text{
+    min-width: 52px;
+    text-align: center;
+    font: 600 16px/1 Arial, sans-serif;
+    color: #fff;
+    letter-spacing: 0.2px;
+  }
+
+  .slide-counter__btn{
+    width: 38px;
+    height: 32px;
+    border-radius: 999px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+
+    padding: 0;
+  }
+
+  .slide-counter__btn:hover{
+    background: rgba(255,255,255,0.10);
+  }
+
+  .slide-counter__btn:active{
+    transform: scale(0.98);
+  }
+
+  .slide-counter__btn svg{
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var splide = new Splide('#splide', {
+      type: 'loop',
+      perPage: 1,
+      focus: 'center',
+      autoplay: true,
+      interval: 8000,
+      flickMaxPages: 3,
+      updateOnMove: true,
+      pagination: false,
+      padding: '0%',
+      throttle: 300,
+      breakpoints: {
+        1440: { perPage: 1, padding: '30%' }
+      }
+    });
+
+    var textEl = document.getElementById('slideCounterText');
+    var prevBtn = document.getElementById('slidePrev');
+    var nextBtn = document.getElementById('slideNext');
+
+    function updateCounter(){
+      // slide count excludes clones
+      var total = splide.length || splide.Components.Slides.getLength(true);
+      // In loop mode, splide.index stays 0..(total-1)
+      var current = (splide.index || 0) + 1;
+      textEl.textContent = current + '/' + total;
+    }
+
+    prevBtn.addEventListener('click', function(){
+      splide.go('<');
+    });
+
+    nextBtn.addEventListener('click', function(){
+      splide.go('>');
+    });
+
+    // Keep widget in sync with autoplay, swipe, arrows, etc.
+    splide.on('mounted move', updateCounter);
+
+    splide.mount();
+  });
+</script>
+      
+  </body>
+  
+</html>
