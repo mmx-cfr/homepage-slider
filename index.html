@@ -13,23 +13,26 @@
       .splide {
   padding: 20px 0;
 }
-#slideCounterText{
-  display:none;
-}
+
 .splide__slide{
     width:800px !important;
-          }
-          
+
+    padding: 10px;
+    position: relative;
+/*    margin-left: -20px;    */
+
+}
+
+.splide__track{
+    margin-left: -20px;  
+}
+
+
+
 .splide__slide img {
   display: block;
   width: 100%;
   border-radius: 0px;
-  transition: transform 400ms;
-  transform: scale(0.9);
-  transform-origin: center center;
-}
-
-.splide__slide.is-active img {
   transform: scale(1);
 }
 
@@ -58,6 +61,8 @@
   right: 0;
   background: linear-gradient(270deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
 }
+
+#slideCounterText{ display:none; }
 
 body {
   margin: 0;
@@ -97,10 +102,10 @@ section {
   <div id="splide" class="splide">
   <div class="splide__track">
     <ul class="splide__list">
-      <li class="splide__slide"><img src="https://sharepro.cloud/cfr/2026-homepage/001b.jpg"></li>
-      <li class="splide__slide"><img src="https://sharepro.cloud/cfr/2026-homepage/002b.jpg"></li>
-      <li class="splide__slide"><img src="https://sharepro.cloud/cfr/2026-homepage/001b.jpg"></li>
-      <li class="splide__slide"><img src="https://sharepro.cloud/cfr/2026-homepage/002b.jpg"></li>
+      <li class="splide__slide"><img src="001b.jpg"></li>
+      <li class="splide__slide"><img src="002b.jpg"></li>
+      <li class="splide__slide"><img src="001b.jpg"></li>
+      <li class="splide__slide"><img src="001b.jpg"></li>
     </ul>
   </div>
 </div>
@@ -120,13 +125,13 @@ section {
     interval: 8000,
     flickMaxPages: 3,
     updateOnMove: true,
-    pagination: false,
-    padding: '0%',
+    pagination: true,
+    padding: '10%',
     throttle: 300,
     breakpoints: {
       1440: {
         perPage: 1,
-        padding: '30%'
+        padding: '10%'
       }
     }
   }).mount();
@@ -184,8 +189,6 @@ section {
     -webkit-backdrop-filter: blur(10px);
 
     user-select: none;
-
-    
   }
 
   .slide-counter__text{
@@ -239,10 +242,10 @@ section {
       flickMaxPages: 3,
       updateOnMove: true,
       pagination: false,
-      padding: '0%',
+      padding: '10%',
       throttle: 300,
       breakpoints: {
-        1440: { perPage: 1, padding: '30%' }
+        1440: { perPage: 1, padding: '10%' }
       }
     });
 
@@ -276,3 +279,4 @@ section {
   </body>
   
 </html>
+
