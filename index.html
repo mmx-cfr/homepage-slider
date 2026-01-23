@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
+<head>
     <meta charset="UTF-8">
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css'><link rel="stylesheet" href="./style.css?v=2">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css'>
+    <style>
+.splide {
+  padding: 20px 0 60px 0;
+  position: relative;  /* Add this */
+  overflow: visible;   /* Add this */  
+}
 
-      
-      <style>
-      
-      
-      
-      .splide {
-  padding: 20px 0;
+.slide-counter{
+  display: none !important;
 }
 
 .splide__slide{
     width:800px !important;
-
     padding: 10px;
     position: relative;
-/*    margin-left: -20px;    */
+    transition: opacity 0.3s ease;
+}
 
+.splide__slide{
+  padding: 10px;
+}
+
+
+/* Tint non-active slides */
+.splide__slide:not(.is-active) {
+    opacity: 0.4;
 }
 
 .splide__track{
     margin-left: -120px;  
 }
-
-
 
 .splide__slide img {
   display: block;
@@ -36,33 +42,72 @@
   transform: scale(1);
 }
 
+/* Custom arrow styling - white circles */
 .splide .splide__arrow {
-  top: 0;
-  bottom: 0;
-  height: 100%;
-  transform: none;
-  border-radius: unset;
-  width: 50px;
-  opacity: 0.9;
-    display: none;
+  background: rgba(255, 255, 255, 1.0);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
 }
+
+.splide .splide__arrow:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+
+
 .splide .splide__arrow svg {
-  filter: invert(1);
-  width: 24px;
-  height: 24px;
+  fill: #000;
+  width: 16px;
+  height: 16px;
 }
 
 .splide__arrow.splide__arrow--prev {
-  left: 0;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+  left: 20px;
 }
 
 .splide__arrow.splide__arrow--next {
-  right: 0;
-  background: linear-gradient(270deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+  right: 20px;
 }
 
-#slideCounterText{ display:none; }
+/* Pagination dots styling - positioned at bottom center */
+.splide__pagination {
+  bottom: -40px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  padding: 0;
+  z-index: 10;
+}
+
+.splide__pagination__page {
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  width: 10px;
+  height: 10px;
+  margin: 0 6px;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.splide__pagination__page:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.splide__pagination__page.is-active {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.4);
+}
+
+#slideCounterText{ 
+  display:none; 
+}
 
 body {
   margin: 0;
@@ -85,198 +130,167 @@ section {
 .left {
   text-align: left;
 }
-      
-      
-      </style>
-      
-      
-  </head>
-    
-  <body>
-      
-      
-      
-      
-      
-      
+
+/* Upper-right overlay pill */
+.slide-counter{
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(0,0,0,1);
+  border: 1px solid rgba(255,255,255,1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  user-select: none;
+}
+
+.slide-counter__text{
+  min-width: 52px;
+  text-align: center;
+  font: 600 16px/1 Arial, sans-serif;
+  color: #fff;
+  letter-spacing: 0.2px;
+}
+
+.slide-counter__btn{
+  width: 38px;
+  height: 32px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0;
+}
+
+.slide-counter__btn:hover{
+  background: rgba(255,255,255,0.10);
+}
+
+.slide-counter__btn:active{
+  transform: scale(0.98);
+}
+
+.slide-counter__btn svg{
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+
+
+.splide {
+  position: relative;
+  padding: 20px 0 60px 0; /* keep this */
+}
+
+.splide__pagination{
+  position: relative;
+  margin-top: 12px;
+  left: auto;
+  transform: none;
+  bottom: auto;
+}
+
+
+
+    </style>
+</head>
+<body>
   <div id="splide" class="splide">
-  <div class="splide__track">
-    <ul class="splide__list">
-      <li class="splide__slide"><img src="https://build.cfr.org/wp-content/uploads/2026/01/001b.jpg"></li>
-      <li class="splide__slide"><img src="https://build.cfr.org/wp-content/uploads/2026/01/002b.jpg"></li>
-      <li class="splide__slide"><img src="https://build.cfr.org/wp-content/uploads/2026/01/001b.jpg"></li>
-      <li class="splide__slide"><img src="https://build.cfr.org/wp-content/uploads/2026/01/002b.jpg"></li>
-    </ul>
+    <div class="splide__track">
+      <ul class="splide__list">
+        <li class="splide__slide"><img src="001b.jpg"></li>
+        <li class="splide__slide"><img src="002b.jpg"></li>
+        <li class="splide__slide"><img src="001b.jpg"></li>
+        <li class="splide__slide"><img src="001b.jpg"></li>
+      </ul>
+    </div>
   </div>
-</div>
-    <script src='https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.6/dist/js/splide.min.js'></script><script  src="./script.js?v=3"></script>
 
-      
-      
-      <script>
-      
-          
-          document.addEventListener( 'DOMContentLoaded', function () {
-  new Splide('#splide', {
-    type: 'loop',
-    perPage: 1,
-    focus: 'center',
-    autoplay: true,
-    interval: 8000,
-    flickMaxPages: 3,
-    updateOnMove: true,
-    pagination: true,
-    padding: '10%',
-    throttle: 300,
-    breakpoints: {
-      1440: {
+  <div class="slide-counter" id="slideCounter" aria-label="Slideshow controls">
+    <span class="slide-counter__text" id="slideCounterText">1/1</span>
+    <button class="slide-counter__btn" id="slidePrev" type="button" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15.5 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="slide-counter__btn" id="slideNext" type="button" aria-label="Next slide">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M8.5 19l7-7-7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+<div style="margin-top:-70px; font-size:xx-large; color: #333;">&bull; 
+
+<span style="color: #FFF;">&bull;</span>
+
+&bull; &bull; &bull;</div>
+
+  <script src='https://cdn.jsdelivr.net/npm/@splidejs/splide@2.4.6/dist/js/splide.min.js'></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var splide = new Splide('#splide', {
+        type: 'loop',
         perPage: 1,
-        padding: '10%'
+        focus: 'center',
+        autoplay: true,
+        interval: 8000,
+        flickMaxPages: 3,
+        updateOnMove: true,
+        pagination: true,
+        arrows: true,
+        padding: '10%',
+        throttle: 300,
+        breakpoints: {
+          1440: { perPage: 1, padding: '10%' }
+        }
+      });
+
+      var textEl = document.getElementById('slideCounterText');
+      var prevBtn = document.getElementById('slidePrev');
+      var nextBtn = document.getElementById('slideNext');
+
+      function updateCounter(){
+        var total = splide.length || splide.Components.Slides.getLength(true);
+        var current = (splide.index || 0) + 1;
+        textEl.textContent = current + '/' + total;
       }
-    }
-  }).mount();
-});
-          
-      </script>
-      
-      
-      
-      
-      
-      
-      
-      
-<!-- Add this widget anywhere inside <body> (ideally right after the #splide div) -->
-<div class="slide-counter" id="slideCounter" aria-label="Slideshow controls">
-  <span class="slide-counter__text" id="slideCounterText">1/1</span>
 
-  <button class="slide-counter__btn" id="slidePrev" type="button" aria-label="Previous slide">
-    <!-- left arrow -->
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M15.5 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
+      prevBtn.addEventListener('click', function(){
+        splide.go('<');
+      });
 
-  <button class="slide-counter__btn" id="slideNext" type="button" aria-label="Next slide">
-    <!-- right arrow -->
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M8.5 19l7-7-7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </button>
-</div>
+      nextBtn.addEventListener('click', function(){
+        splide.go('>');
+      });
 
-<style>
-  /* Upper-right overlay pill */
-  .slide-counter{
-    position: fixed;
-    top: 18px;
-    right: 18px;
-    z-index: 9999;
+      splide.on('mounted move', updateCounter);
 
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+      splide.on('mounted', function() {
+        var prevArrow = document.querySelector('.splide__arrow--prev');
+        var nextArrow = document.querySelector('.splide__arrow--next');
+        
+        prevArrow.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>';
+        
+        nextArrow.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>';
+      });
 
-    padding: 10px 12px;
-    border-radius: 999px;
+      splide.mount();
 
-/*    background: rgba(0,0,0,0.55);*/
-      
-       background: rgba(0,0,0,1);
-      
-    border: 1px solid rgba(255,255,255,1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    user-select: none;
-  }
-
-  .slide-counter__text{
-    min-width: 52px;
-    text-align: center;
-    font: 600 16px/1 Arial, sans-serif;
-    color: #fff;
-    letter-spacing: 0.2px;
-  }
-
-  .slide-counter__btn{
-    width: 38px;
-    height: 32px;
-    border-radius: 999px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    background: transparent;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-
-    padding: 0;
-  }
-
-  .slide-counter__btn:hover{
-    background: rgba(255,255,255,0.10);
-  }
-
-  .slide-counter__btn:active{
-    transform: scale(0.98);
-  }
-
-  .slide-counter__btn svg{
-    width: 20px;
-    height: 20px;
-    display: block;
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var splide = new Splide('#splide', {
-      type: 'loop',
-      perPage: 1,
-      focus: 'center',
-      autoplay: true,
-      interval: 8000,
-      flickMaxPages: 3,
-      updateOnMove: true,
-      pagination: false,
-      padding: '10%',
-      throttle: 300,
-      breakpoints: {
-        1440: { perPage: 1, padding: '10%' }
-      }
     });
 
-    var textEl = document.getElementById('slideCounterText');
-    var prevBtn = document.getElementById('slidePrev');
-    var nextBtn = document.getElementById('slideNext');
 
-    function updateCounter(){
-      // slide count excludes clones
-      var total = splide.length || splide.Components.Slides.getLength(true);
-      // In loop mode, splide.index stays 0..(total-1)
-      var current = (splide.index || 0) + 1;
-      textEl.textContent = current + '/' + total;
-    }
 
-    prevBtn.addEventListener('click', function(){
-      splide.go('<');
-    });
-
-    nextBtn.addEventListener('click', function(){
-      splide.go('>');
-    });
-
-    // Keep widget in sync with autoplay, swipe, arrows, etc.
-    splide.on('mounted move', updateCounter);
-
-    splide.mount();
-  });
-</script>
-      
-  </body>
-  
+  </script>
+</body>
 </html>
-
