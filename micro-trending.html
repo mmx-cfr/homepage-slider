@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trending Topics (Splide)</title>
+
+  <!-- Splide CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+
+  <style>
+    :root{
+      --border: rgba(255,255,255,.35);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.55);
+      --shadow: 0 10px 30px rgba(0,0,0,.55);
+    }
+
+    body{
+      margin:0;
+      background:#111;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      display:flex;
+      justify-content:center;
+      padding:24px;
+    }
+
+    .trending-strip{
+      width:min(1200px, 96vw);
+      background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      padding: 18px 18px 14px;
+    }
+
+    .trending-inner{
+      position: relative;
+      z-index: 2;
+    }
+
+    .kicker{
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .divider{
+      margin-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 10px;
+      color: rgba(255,255,255,.85);
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    /* Splide sizing and spacing */
+    .splide__track{ overflow: visible; }
+    .splide__slide{
+      width: 200px;
+      padding-right: 10px;
+    }
+
+    /* Arrows */
+    .splide__arrows{
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .splide__arrow{
+      pointer-events: auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.25);
+      top: 46px;
+      transform: translateY(-50%);
+    }
+    .splide__arrow svg{ fill: rgba(255,255,255,.9); }
+    .splide__arrow--prev{ left: 8px; }
+    .splide__arrow--next{ right: 8px; }
+    .splide__pagination{ display:none; }
+
+    @media (max-width: 720px){
+      .splide__slide{ width: 170px; }
+    }
+
+    /* Card: centered title, arrow in lower-right, per-card hover image */
+    .trend-card{
+      height: 62px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: rgba(0,0,0,.15);
+      color: var(--text);
+      position: relative;
+      overflow: hidden;            /* keeps hover image inside the box */
+      user-select: none;
+      transition: border-color 140ms ease, background 140ms ease;
+      display: grid;
+      place-items: center;          /* centers the text block */
+    }
+
+    /* Per-card background image layer (only inside hovered box) */
+    .trend-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: var(--card-bg, none);
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 180ms ease;
+      pointer-events:none;
+      filter: saturate(0.95) contrast(1.05);
+    }
+
+    /* slight dark overlay so text stays readable */
+    .trend-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.55) 100%);
+      opacity: 0;
+      transition: opacity 180ms ease;
+      pointer-events:none;
+    }
+
+    .trend-card:hover{
+      border-color: rgba(255,255,255,.6);
+      background: rgba(0,0,0,.05);
+    }
+
+    .trend-card.is-hovering::before{ opacity: .70; }
+    .trend-card.is-hovering::after{ opacity: 1; }
+
+    .trend-card .label{
+      position: relative;
+      z-index: 2;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: .95;
+      white-space: nowrap;
+      text-align: center;
+      padding: 0 10px;
+    }
+
+    .trend-card .arrow{
+      position: absolute;
+      z-index: 2;
+      right: 10px;
+      bottom: 8px;
+      font-size: 16px;
+      color: rgba(255,255,255,.85);
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="trending-strip" id="trendingStrip">
+    <div class="trending-inner">
+<!--      <div class="kicker">TRENDING TOPICS</div>-->
+
+      <div id="trendingSplide" class="splide" aria-label="Trending topics carousel">
+        <div class="splide__track">
+          <ul class="splide__list">
+
+            <li class="splide__slide">
+              <div class="trend-card" data-bg="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCv2J96IlaVKBCjIwID_ch8IkqMpARW3hgvA&s">
+                <span class="label">Davos</span><span class="arrow">→</span>
+              </div>
+            </li>
+
+            <li class="splide__slide">
+              <div class="trend-card" data-bg="https://assets.cfr.org/images/w_1920/t_cfr_3_2/v1769444654/Bobi-Wine-and-wife-vote-in-Ugandan-election-012626/Bobi-Wine-and-wife-vote-in-Ugandan-election-012626.jpg?_i=AA">
+                <span class="label">Africa</span><span class="arrow">→</span>
+              </div>
+            </li>
+
+            <li class="splide__slide">
+              <div class="trend-card" data-bg="https://assets.cfr.org/images/w_640/t_cfr_3_2/v1769703004/Greenland_PS_A/Greenland_PS_A.jpg?_i=AA">
+                <span class="label">Greenland</span><span class="arrow">→</span>
+              </div>
+            </li>
+
+            <li class="splide__slide">
+              <div class="trend-card" data-bg="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=1600&q=60">
+                <span class="label">Venezuela</span><span class="arrow">→</span>
+              </div>
+            </li>
+
+            <li class="splide__slide">
+              <div class="trend-card" data-bg="https://trumpwhitehouse.archives.gov/wp-content/uploads/2017/12/P20170614JB-0303-2-1920x720.jpg">
+                <span class="label">Grand Strategy</span><span class="arrow">→</span>
+              </div>
+            </li>
+
+            <li class="splide__slide">
+              <div class="trend-card" data-bg="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=60">
+                <span class="label">Energy</span><span class="arrow">→</span>
+              </div>
+            </li>
+
+            <li class="splide__slide">
+              <div class="trend-card" data-bg="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1600&q=60">
+                <span class="label">Space</span><span class="arrow">→</span>
+              </div>
+            </li>
+
+            <li class="splide__slide">
+              <div class="trend-card" data-bg="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1600&q=60">
+                <span class="label">AI Policy</span><span class="arrow">→</span>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+<!--      <div class="divider">Editor's Picks</div>-->
+    </div>
+  </section>
+
+  <!-- Splide JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+
+  <script>
+    (function () {
+      // Carousel
+      const splide = new Splide("#trendingSplide", {
+        type: "slide",
+        perMove: 1,
+        autoWidth: true,
+        pagination: false,
+        arrows: true,
+        drag: true,
+        flickPower: 400,
+        speed: 350,
+        trimSpace: true,
+      });
+
+      splide.mount();
+
+      // Per-card hover image only inside the hovered card
+      document.querySelectorAll(".trend-card").forEach((card) => {
+        const bg = card.getAttribute("data-bg");
+        if (bg) {
+          card.style.setProperty("--card-bg", `url("${bg}")`);
+        }
+
+        card.addEventListener("mouseenter", () => {
+          card.classList.add("is-hovering");
+        });
+
+        card.addEventListener("mouseleave", () => {
+          card.classList.remove("is-hovering");
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
