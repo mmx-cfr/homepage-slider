@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>-</title>
+
+  <style>
+    :root { --gap: 25px; }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: #0b0b0b; }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0px;
+    }
+
+    /* LAYOUT:
+       Mobile: stacked
+       Desktop: feature-one | feature-two (side-by-side)
+    */
+    .features {
+      display: grid;
+      gap: 0px;
+      grid-template-columns: 1fr;
+    }
+    
+
+    
+    @media (min-width: 900px) {
+      .features {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+      }
+
+      /* Make the wide image align visually with feature-one height */
+      #feature-two { height: 100%; 
+
+        padding-left: 0px !important;
+              display:block !important;
+      }
+      
+      #feature-two .wide { height: 100%;
+        margin:0px;
+        padding:0px;
+        max-height: 220px !important;
+      }
+    }
+
+    /* FEATURE ONE: text + square */
+    #feature-one {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: var(--gap);
+      background: #1e1e1e; /* debug */
+      padding: var(--gap);
+      color: #fff;
+    }
+
+    .text {
+      padding: 16px;
+    }
+
+    .title { margin: 0 0 10px; font-size: 22px; font-weight: 700; }
+    .rule  { height: 1px; background: rgba(255,255,255,.4); margin: 0 0 12px; }
+    .body  { margin: 0; line-height: 1.45; font-size: 14.5px; color: rgba(255,255,255,.9); }
+
+    /* FEATURE TWO: wide */
+    #feature-two {
+      background: #3a1b2a; /* debug */
+      padding: var(--gap);
+      display:none;
+    }
+
+    .media {
+      border: 1px solid #fff;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .square { aspect-ratio: 1 / 1; }
+    .wide   { aspect-ratio: 580 / 274; }
+
+    /* Make feature-one stack internally on small screens */
+    @media (max-width: 620px) {
+      #feature-one { grid-template-columns: 1fr; }
+    }
+    
+    
+/* Kill default figure spacing (can cause weird overflow/collapse) */
+figure { margin: 0; }
+
+/* Feature one: keep the square from collapsing */
+#feature-one{
+  grid-template-columns: minmax(240px, 320px) minmax(220px, 360px);
+}
+
+/* Make sure the image boxes actually take space */
+.media { width: 100%; }
+    
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="features">
+      <div id="feature-one">
+        <div class="text">
+          <h2 class="title">CFR Store</h2>
+          <div class="rule"></div>
+          <p class="body">
+            Show your interest in world affairs beyond the headlines. Check out the latest Council on Foreign Relations gear.
+          </p>
+        </div>
+
+        <figure class="media square">
+          <img src="https://dummyimage.com/600x600/c72ec7/0011ff" alt="Square product image" />
+        </figure>
+      </div>
+
+      <div id="feature-two">
+        <figure class="media wide">
+          <img src="https://dummyimage.com/580x274/c72ec7/0011ff" alt="Wide product image" />
+        </figure>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
